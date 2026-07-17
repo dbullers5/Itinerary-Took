@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#101827" />
+  <title>UK + Barcelona Trip Itinerary</title>
+  <style>
+    :root{
+      --bg:#0c111d;
+      --panel:#121a2a;
+      --panel-2:#172237;
+      --card:#ffffff;
+      --text:#101827;
+      --muted:#667085;
+      --line:#e4e7ec;
+      --brand:#7c3aed;
+      --brand-2:#06b6d4;
+      --brand-3:#f59e0b;
+      --good:#16a34a;
+      --danger:#dc2626;
+      --shadow:0 18px 60px rgba(16,24,40,.18);
+      --radius:24px;
+      --radius-sm:16px;
+      --safe-top:env(safe-area-inset-top);
+      --safe-bottom:env(safe-area-inset-bottom);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,58,237,.35), transparent 30rem),
+        radial-gradient(circle at top right, rgba(6,182,212,.24), transparent 28rem),
+        linear-gradient(180deg,#0b1020 0%,#111827 45%,#f2f4f7 45%,#f2f4f7 100%);
+      color:var(--text);
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none}
+    .app{max-width:980px;margin:0 auto;padding:calc(18px + var(--safe-top)) 16px calc(40px + var(--safe-bottom));}
+    .hero{
+      color:#fff;
+      padding:20px 4px 18px;
+      position:relative;
+    }
+    .eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#c7d2fe;font-weight:700;margin-bottom:10px}
+    h1{font-size:34px;line-height:1.02;margin:0 0 10px;font-weight:850;letter-spacing:-.04em}
+    .subtitle{color:#d0d5dd;font-size:15px;line-height:1.5;margin:0;max-width:720px}
+    .top-actions{display:flex;gap:10px;margin-top:18px;overflow:auto;padding-bottom:2px}
+    .pill{
+      white-space:nowrap;
+      display:inline-flex;align-items:center;gap:8px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.10);
+      color:#fff;border-radius:999px;padding:10px 14px;
+      font-weight:700;font-size:13px;backdrop-filter:blur(12px);
+    }
+    .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px}
+    @media(min-width:760px){.grid{grid-template-columns:1.15fr .85fr}h1{font-size:48px}.app{padding-left:22px;padding-right:22px}}
+    .glass{
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:var(--radius);
+      box-shadow:0 24px 80px rgba(0,0,0,.2);
+      backdrop-filter:blur(16px);
+      color:#fff;
+    }
+    .journey{padding:16px}
+    .journey-title{font-weight:850;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .stops{display:grid;gap:10px}
+    .stop{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+    .dot{width:12px;height:12px;border-radius:99px;background:linear-gradient(135deg,var(--brand),var(--brand-2));margin-top:5px;box-shadow:0 0 0 5px rgba(255,255,255,.08)}
+    .stop b{display:block;font-size:14px}.stop span{display:block;color:#d0d5dd;font-size:13px;margin-top:2px}
+    .quick-card{padding:16px}
+    .quick-card h2,.section h2{margin:0 0 12px;font-size:18px;letter-spacing:-.02em}
+    .mini-list{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+    .mini-list li{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.12);padding-top:10px;font-size:13px;color:#d0d5dd}
+    .mini-list strong{color:#fff}
+    .tabs{
+      position:sticky;top:0;z-index:20;margin:18px -16px 0;padding:10px 16px;
+      background:rgba(242,244,247,.88);backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(16,24,40,.08);
+      display:flex;gap:8px;overflow:auto;
+    }
+    @media(min-width:760px){.tabs{margin-left:-22px;margin-right:-22px;padding-left:22px;padding-right:22px}}
+    .tab{
+      border:1px solid #d0d5dd;background:#fff;color:#344054;border-radius:999px;
+      padding:9px 12px;font-weight:800;font-size:13px;white-space:nowrap;cursor:pointer;
+      box-shadow:0 2px 8px rgba(16,24,40,.05)
+    }
+    .tab.active{background:#101827;color:#fff;border-color:#101827}
+    .section{margin-top:18px}
+    .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px;padding:0 2px}
+    .section-head p{margin:3px 0 0;color:#667085;font-size:13px;line-height:1.35}.section-head h2{margin:0;font-size:24px}
+    .cards{display:grid;gap:14px}
+    .day-card{
+      background:#fff;border:1px solid rgba(16,24,40,.08);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
+    }
+    .day-header{
+      padding:16px;display:flex;gap:12px;align-items:flex-start;justify-content:space-between;cursor:pointer;
+      background:linear-gradient(135deg,#fff 0%,#f8fafc 100%);
+    }
+    .date-badge{
+      width:64px;min-width:64px;border-radius:18px;background:#101827;color:#fff;padding:10px 8px;text-align:center;box-shadow:0 12px 28px rgba(16,24,40,.18)
+    }
+    .date-badge .day{font-size:20px;font-weight:900;line-height:1}.date-badge .mon{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#c7d2fe;margin-top:4px}
+    .day-title{flex:1}.day-title h3{margin:0;font-size:20px;letter-spacing:-.03em}.day-title p{margin:5px 0 0;color:#667085;font-size:13px;line-height:1.35}
+    .chev{font-size:22px;color:#667085;transform:rotate(0deg);transition:.2s}.day-card.closed .chev{transform:rotate(-90deg)}
+    .day-body{padding:0 16px 16px}.day-card.closed .day-body{display:none}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 14px 76px}
+    .tag{font-size:12px;border-radius:999px;padding:6px 9px;font-weight:800;background:#eef4ff;color:#3538cd}.tag.food{background:#fff7ed;color:#c2410c}.tag.sport{background:#ecfdf3;color:#027a48}.tag.travel{background:#eff8ff;color:#026aa2}.tag.flex{background:#f4f3ff;color:#5925dc}
+    .timeline{position:relative;margin-left:10px;padding-left:18px;border-left:2px solid #eaecf0;display:grid;gap:12px}
+    .item{position:relative;padding:12px;border:1px solid #eaecf0;border-radius:18px;background:#fcfcfd}
+    .item:before{content:"";position:absolute;left:-25px;top:18px;width:12px;height:12px;background:#fff;border:3px solid var(--brand);border-radius:999px}
+    .time{font-size:12px;font-weight:900;color:#6941c6;letter-spacing:.02em;text-transform:uppercase}.item h4{margin:4px 0 4px;font-size:15px}.item p{margin:0;color:#667085;font-size:13px;line-height:1.45}
+    .buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .btn{display:inline-flex;align-items:center;gap:7px;border:1px solid #d0d5dd;background:#fff;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:850;color:#344054}
+    .btn.primary{background:#101827;color:#fff;border-color:#101827}.btn.warn{background:#fff7ed;border-color:#fed7aa;color:#9a3412}
+    .note{margin-top:14px;border-radius:18px;background:#f4f3ff;color:#42307d;padding:12px;font-size:13px;line-height:1.45;border:1px solid #d9d6fe}
+    .checklist{display:grid;gap:10px}.check{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #eaecf0;border-radius:16px;padding:12px}.check input{width:20px;height:20px;accent-color:#7c3aed}.check span{font-weight:750}.check small{display:block;color:#667085;font-weight:500;margin-top:2px}
+    .tools{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}@media(min-width:760px){.tools{grid-template-columns:1fr 1fr}}
+    .tool-card{background:#fff;border:1px solid rgba(16,24,40,.08);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}.tool-card h3{margin:0 0 10px}.tool-card p{margin:0 0 12px;color:#667085;font-size:13px;line-height:1.45}
+    .footer{margin:24px 0 0;text-align:center;color:#667085;font-size:12px}.hidden{display:none!important}
+    .search{width:100%;border:1px solid #d0d5dd;border-radius:18px;padding:13px 14px;font-size:15px;box-shadow:0 2px 8px rgba(16,24,40,.04)}
+    @media print{body{background:#fff}.hero,.tabs,.top-actions{display:none}.day-card{box-shadow:none;break-inside:avoid}.day-card.closed .day-body{display:block}.app{max-width:none}.section{display:block!important}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div class="eyebrow">UK + Barcelona 2026</div>
+      <h1>Trip Itinerary</h1>
+      <p class="subtitle">London buzz, Scotland wedding, Barcelona birthday, Brighton homecoming. Built for quick phone use, offline viewing, maps, bookings and flexible backup plans.</p>
+      <div class="top-actions">
+        <a class="pill" href="#today">✨ Start here</a>
+        <a class="pill" href="#checklist">✅ Checklist</a>
+        <button class="pill" onclick="window.print()">📄 Save PDF</button>
+      </div>
+      <div class="grid">
+        <section class="glass journey">
+          <div class="journey-title">Route overview</div>
+          <div class="stops">
+            <div class="stop"><div class="dot"></div><div><b>London</b><span>21–25 Aug · The Clermont Victoria</span></div></div>
+            <div class="stop"><div class="dot"></div><div><b>Scotland / wedding</b><span>25 Aug–1 Sept · flexible block</span></div></div>
+            <div class="stop"><div class="dot"></div><div><b>Barcelona</b><span>1–5 Sept · Antiga Casa Buenavista</span></div></div>
+            <div class="stop"><div class="dot"></div><div><b>Brighton</b><span>5–8 Sept · Hilton Brighton Metropole</span></div></div>
+          </div>
+        </section>
+        <section class="glass quick-card" id="today">
+          <h2>Locked highlights</h2>
+          <ul class="mini-list">
+            <li><strong>Fri 21 Aug</strong><span>Battersea Power Station</span></li>
+            <li><strong>Sat 22 Aug</strong><span>Harry Potter Parts 1 + 2</span></li>
+            <li><strong>Sun 23 Aug</strong><span>Brighton v Aston Villa</span></li>
+            <li><strong>Wed 2 Sept</strong><span>Birthday dinner: Lomo Alto</span></li>
+            <li><strong>Sat 5 Sept</strong><span>Brighton v Leeds</span></li>
+          </ul>
+        </section>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Trip sections">
+      <button class="tab active" data-filter="all">All</button>
+      <button class="tab" data-filter="london">London</button>
+      <button class="tab" data-filter="scotland">Scotland</button>
+      <button class="tab" data-filter="barcelona">Barcelona</button>
+      <button class="tab" data-filter="brighton">Brighton</button>
+      <button class="tab" data-filter="tools">Tools</button>
+    </nav>
+
+    <section class="section" data-city="tools">
+      <div class="section-head">
+        <div><h2>Find anything</h2><p>Search days, places, restaurants, bookings or travel notes.</p></div>
+      </div>
+      <input class="search" id="search" placeholder="Search itinerary... e.g. Harry Potter, Lomo Alto, Gatwick" />
+    </section>
+
+    <section class="section" data-city="london">
+      <div class="section-head"><div><h2>London</h2><p>21–25 August · The Clermont Victoria</p></div></div>
+      <div class="cards">
+        <article class="day-card" data-city="london" data-text="heathrow clermont victoria battersea power station lift 109 sticks sushi arsenal friday arrival london">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">21</div><div class="mon">Aug</div></div><div class="day-title"><h3>Friday · Arrival + Battersea</h3><p>Post-flight reset, scenic walk, Power Station shops, Lift 109, Japanese dinner.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag travel">Arrival</span><span class="tag food">Dinner</span><span class="tag flex">Chill</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">12:30</div><h4>Land at Heathrow</h4><p>Default route: Elizabeth line to Paddington, then Circle/District line or taxi to Victoria.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=The+Clermont+Victoria+London">Hotel map</a><a class="btn" href="https://tfl.gov.uk/">TfL</a></div></div>
+            <div class="item"><div class="time">15:00–16:00</div><h4>Check in + reset</h4><p>Shower, unpack, light reset at The Clermont Victoria.</p></div>
+            <div class="item"><div class="time">17:00</div><h4>Walk to Battersea Power Station</h4><p>Route: Victoria → Belgravia/Pimlico → Chelsea Bridge → Battersea Power Station. About 30–40 minutes.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?saddr=The+Clermont+Victoria+London&daddr=Battersea+Power+Station+London&dirflg=w">Walking route</a></div></div>
+            <div class="item"><div class="time">18:00–19:15</div><h4>Shops, riverside + Lift 109</h4><p>Book Lift 109 if you want the chimney-view moment. Keep it optional if the flight hits hard.</p><div class="buttons"><a class="btn" href="https://lift109.co.uk/">Lift 109</a><a class="btn" href="https://batterseapowerstation.co.uk/">Battersea</a></div></div>
+            <div class="item"><div class="time">19:30</div><h4>Dinner at Battersea</h4><p>Best fit: Sticks’n’Sushi for Japanese with grilled meat options. Backups: Bread Street Kitchen, Le Bab, Arcade Food Hall.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Sticks+n+Sushi+Battersea+Power+Station">Sticks’n’Sushi</a></div></div>
+          </div><div class="note">If Uber is surging, use Tube/bus back. Walking back is fine if it’s not too late and you’re both awake.</div></div>
+        </article>
+
+        <article class="day-card" data-city="london" data-text="notting hill portobello granger farm girl harry potter cursed child palace theatre soho covent garden">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">22</div><div class="mon">Aug</div></div><div class="day-title"><h3>Saturday · Portobello + Harry Potter</h3><p>Early Notting Hill, then Palace Theatre for both parts.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag">Notting Hill</span><span class="tag food">Brunch</span><span class="tag flex">Theatre</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">08:00–09:00</div><h4>Breakfast in Notting Hill</h4><p>Granger & Co is the best overall aim. Farm Girl is cute but likely busier.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=Granger+and+Co+Notting+Hill">Granger</a><a class="btn" href="https://maps.google.com/?q=Farm+Girl+Notting+Hill">Farm Girl</a></div></div>
+            <div class="item"><div class="time">09:30–11:15</div><h4>Portobello Road Market</h4><p>Go early, enjoy the good bit, then leave before the Saturday crush peaks.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=Portobello+Road+Market+London">Map</a></div></div>
+            <div class="item"><div class="time">12:00–13:15</div><h4>Lunch near Palace Theatre</h4><p>Stay close: Soho, Seven Dials, Cambridge Circus or Covent Garden. No cross-town lunch.</p></div>
+            <div class="item"><div class="time">14:00</div><h4>Harry Potter Part One</h4><p>Arrive by 13:30. Palace Theatre, Shaftesbury Avenue.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Palace+Theatre+London">Theatre map</a></div></div>
+            <div class="item"><div class="time">16:45–18:15</div><h4>Dinner between parts</h4><p>Book something close. Keep it easy and reliable.</p></div>
+            <div class="item"><div class="time">19:00</div><h4>Harry Potter Part Two</h4><p>Finish around 21:35. Late Soho drink or back to The Clermont.</p></div>
+          </div></div>
+        </article>
+
+        <article class="day-card" data-city="london" data-text="brighton aston villa amex falmer terrace sunday day trip from victoria brunch buttery belgravia">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">23</div><div class="mon">Aug</div></div><div class="day-title"><h3>Sunday · Brighton v Aston Villa</h3><p>Brunch, train to Falmer, early Terrace drink, 2pm kick-off.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag sport">Football</span><span class="tag travel">Train</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">08:45–09:00</div><h4>Breakfast / brunch near Victoria</h4><p>The Buttery in Belgravia is the top aim if you want a proper start.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=The+Buttery+Belgravia">The Buttery</a></div></div>
+            <div class="item"><div class="time">10:45</div><h4>Victoria Station</h4><p>Get water/snacks and allow buffer for the train.</p></div>
+            <div class="item"><div class="time">11:00–11:15</div><h4>Train toward Falmer / Amex</h4><p>Travel via Brighton or direct options depending on the timetable closer to date.</p><div class="buttons"><a class="btn" href="https://www.nationalrail.co.uk/">National Rail</a></div></div>
+            <div class="item"><div class="time">12:15–12:30</div><h4>Arrive early</h4><p>Terrace / fan zone drink, pre-match atmosphere, no rushing.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=American+Express+Stadium+Falmer">Amex map</a></div></div>
+            <div class="item"><div class="time">14:00</div><h4>Brighton v Aston Villa</h4><p>Allow crowds at Falmer after full time. Keep London dinner flexible.</p></div>
+          </div></div>
+        </article>
+
+        <article class="day-card" data-city="london" data-text="monday marylebone daunt books lime bike hyde park oxford street regent street carnaby soho">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">24</div><div class="mon">Aug</div></div><div class="day-title"><h3>Monday · Marylebone + West End shops</h3><p>Slow neighbourhood day, optional Lime ride, Oxford/Regent/Carnaby/Soho evening.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag flex">Shopping</span><span class="tag">Neighbourhood</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">10:30–13:30</div><h4>Marylebone</h4><p>Marylebone High Street, coffee/lunch, boutiques, and Daunt Books if it still appeals.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=Daunt+Books+Marylebone">Daunt Books</a></div></div>
+            <div class="item"><div class="time">Early afternoon</div><h4>Optional Lime bike</h4><p>Best route: Marylebone → Mayfair → Hyde Park Corner / Green Park. Avoid Oxford Street and Soho traffic.</p></div>
+            <div class="item"><div class="time">15:30–16:30</div><h4>Hotel reset</h4><p>Freshen up before the final London evening.</p></div>
+            <div class="item"><div class="time">17:00 onwards</div><h4>Oxford Street, Regent Street, Carnaby + Soho</h4><p>Victoria line to Oxford Circus. Wander Oxford Circus → Regent Street → Carnaby → Soho. Dinner around Soho/Kingly Court/Mayfair edge.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Carnaby+Street+London">Carnaby map</a></div></div>
+          </div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" data-city="scotland">
+      <div class="section-head"><div><h2>Scotland / wedding</h2><p>25 August–1 September · keep this block flexible.</p></div></div>
+      <div class="cards">
+        <article class="day-card" data-city="scotland" data-text="scotland wedding glasgow barcelona flight 1 september">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">25</div><div class="mon">Aug</div></div><div class="day-title"><h3>Tuesday to Monday · Wedding block</h3><p>Travel north, wedding commitments, and keep some breathing room before Barcelona.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag travel">Travel</span><span class="tag flex">Flexible</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">25 Aug–1 Sept</div><h4>Scotland / wedding</h4><p>Leave this section light so wedding plans can move around. Avoid overbooking the final day before the late Barcelona flight.</p></div>
+            <div class="item"><div class="time">1 Sept evening</div><h4>Glasgow → Barcelona</h4><p>Flight lands Barcelona at 21:15. Plan for taxi, hotel check-in and sleep only.</p></div>
+          </div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" data-city="barcelona">
+      <div class="section-head"><div><h2>Barcelona</h2><p>1–5 September · Antiga Casa Buenavista</p></div></div>
+      <div class="cards">
+        <article class="day-card" data-city="barcelona" data-text="barcelona arrival late antiga casa buenavista taxi glasgow flight lands 9:15">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">1</div><div class="mon">Sep</div></div><div class="day-title"><h3>Tuesday · Late arrival</h3><p>Glasgow flight lands 21:15. Taxi, check-in, sleep.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag travel">Arrival</span></div>
+          <div class="day-body"><div class="timeline"><div class="item"><div class="time">21:15</div><h4>Land in Barcelona</h4><p>Do not plan dinner or sightseeing. Eat before/at airport if needed. Taxi to Antiga Casa Buenavista.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Antiga+Casa+Buenavista+Barcelona">Hotel map</a></div></div></div></div>
+        </article>
+
+        <article class="day-card" data-city="barcelona" data-text="birthday sagrada familia passeig de gracia casa batllo la pedrera ohla rooftop lomo alto steak grilled meat">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">2</div><div class="mon">Sep</div></div><div class="day-title"><h3>Wednesday · Birthday Barcelona</h3><p>Iconic first-timer sights, rooftop drink, grilled-meat birthday dinner.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag food">Birthday dinner</span><span class="tag">Iconic</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">Morning</div><h4>Sagrada Família photo moment</h4><p>Go early. Book timed tickets only if you want to go inside; otherwise do the exterior and Plaça de Gaudí angle.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=Sagrada+Familia+Barcelona">Map</a><a class="btn" href="https://sagradafamilia.org/en/tickets">Tickets</a></div></div>
+            <div class="item"><div class="time">Late morning</div><h4>Passeig de Gràcia</h4><p>Casa Batlló exterior, La Pedrera exterior, Rambla de Catalunya. Stylish and easy.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=Casa+Batllo+Barcelona">Casa Batlló</a></div></div>
+            <div class="item"><div class="time">Afternoon</div><h4>Hotel reset / pool</h4><p>Keep energy for the birthday night after the late arrival.</p></div>
+            <div class="item"><div class="time">Early evening</div><h4>Ohla Rooftop drink</h4><p>Central, stylish, good view. Book if timing matters.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Ohla+Barcelona+Rooftop">Ohla map</a></div></div>
+            <div class="item"><div class="time">Dinner</div><h4>Lomo Alto</h4><p>Birthday anchor: steak, grilled meats, grown-up room, not seafood-led.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Lomo+Alto+Barcelona">Lomo Alto</a></div></div>
+          </div></div>
+        </article>
+
+        <article class="day-card" data-city="barcelona" data-text="park guell gracia gothic quarter el born placa reial ccm arc de triomf ciutadella monumental waterfall bogatell beach">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">3</div><div class="mon">Sep</div></div><div class="day-title"><h3>Thursday · Park Güell, Gràcia + El Born</h3><p>Instagram must-sees plus authentic neighbourhoods and Bogatell.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag">Gaudí</span><span class="tag flex">Beach</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">Morning</div><h4>Park Güell</h4><p>Book an early timed slot. Big Barcelona photo moment.</p><div class="buttons"><a class="btn" href="https://parkguell.barcelona/en/buy-tickets">Tickets</a><a class="btn" href="https://maps.google.com/?q=Park+Guell+Barcelona">Map</a></div></div>
+            <div class="item"><div class="time">Late morning</div><h4>Gràcia wander</h4><p>Carrer de Verdi, Plaça del Sol, Plaça de la Vila de Gràcia, Plaça de la Virreina.</p></div>
+            <div class="item"><div class="time">Afternoon</div><h4>Gothic Quarter + El Born</h4><p>Barcelona Cathedral, Pont del Bisbe, Plaça Reial, El Born, Santa Maria del Mar, El Born CCM.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=El+Born+Centre+de+Cultura+i+Memoria">El Born CCM</a></div></div>
+            <div class="item"><div class="time">Late afternoon</div><h4>Arc de Triomf → Ciutadella → Bogatell</h4><p>Include Cascada Monumental, then continue toward Port Olímpic and Bogatell Beach.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Bogatell+Beach+Barcelona">Bogatell</a></div></div>
+            <div class="item"><div class="time">Dinner</div><h4>El Born / Eixample / Sant Antoni</h4><p>Bar Pimentel is an option, but check the menu because you both avoid seafood.</p></div>
+          </div></div>
+        </article>
+
+        <article class="day-card" data-city="barcelona" data-text="boqueria market montjuic mnac salts montjuic bunkers del carmel final dinner fire barcelona poble sec sant antoni">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">4</div><div class="mon">Sep</div></div><div class="day-title"><h3>Friday · Montjuïc + Bunkers view</h3><p>Quick market look, MNAC views, Salts drink, golden-hour Bunkers.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag">Views</span><span class="tag food">Final dinner</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">Morning</div><h4>Boqueria quick look</h4><p>Go early if you want it. Treat it as a look/snack, not a main meal. Do not eat on La Rambla.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=La+Boqueria+Barcelona">Boqueria</a></div></div>
+            <div class="item"><div class="time">Late morning / lunch</div><h4>Poble-sec + Montjuïc</h4><p>Tapas/vermut around Poble-sec, then MNAC exterior/views.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=MNAC+Barcelona">MNAC</a></div></div>
+            <div class="item"><div class="time">Afternoon</div><h4>Salts Montjuïc drink</h4><p>Scenic drink, not the main meal.</p><div class="buttons"><a class="btn" href="https://maps.google.com/?q=Salts+Montjuic+Barcelona">Salts</a></div></div>
+            <div class="item"><div class="time">Early evening</div><h4>Bunkers del Carmel</h4><p>Golden-hour viewpoint. Taxi up, enjoy the city/sea views, then head down for dinner.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Bunkers+del+Carmel+Barcelona">Bunkers</a></div></div>
+            <div class="item"><div class="time">Dinner</div><h4>Final Barcelona dinner</h4><p>FIRE Barcelona if you want a flame/grill night by the W; otherwise Sant Antoni/Eixample/Poble-sec for a more local final dinner.</p></div>
+          </div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" data-city="brighton">
+      <div class="section-head"><div><h2>Brighton</h2><p>5–8 September · Hilton Brighton Metropole</p></div></div>
+      <div class="cards">
+        <article class="day-card" data-city="brighton" data-text="gatwick brighton metropole leeds amex falmer terrace 3pm match">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">5</div><div class="mon">Sep</div></div><div class="day-title"><h3>Saturday · Gatwick + Brighton v Leeds</h3><p>Land 08:40, train to Brighton, bag drop, 3pm Amex match.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag travel">Flight</span><span class="tag sport">Football</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">08:40</div><h4>Land at Gatwick</h4><p>Head for the direct train to Brighton once through airport formalities.</p></div>
+            <div class="item"><div class="time">09:30–10:00</div><h4>Train to Brighton</h4><p>Direct and quick. Arrive Brighton, then walk/taxi to Hilton Brighton Metropole.</p><div class="buttons"><a class="btn" href="https://www.nationalrail.co.uk/">National Rail</a><a class="btn" href="https://maps.google.com/?q=Hilton+Brighton+Metropole">Hotel map</a></div></div>
+            <div class="item"><div class="time">11:00</div><h4>Drop bags / check-in if ready</h4><p>Keep the morning light: seafront coffee or short reset only.</p></div>
+            <div class="item"><div class="time">12:30–13:00</div><h4>Head to Falmer</h4><p>Train from Brighton to Falmer for the Amex. Get there early for The Terrace / pre-match atmosphere.</p></div>
+            <div class="item"><div class="time">15:00</div><h4>Brighton v Leeds</h4><p>Matchday first, exploring later. Keep dinner flexible after Falmer crowds.</p></div>
+          </div></div>
+        </article>
+
+        <article class="day-card" data-city="brighton" data-text="ditchling beacon stanmer falmer amex views sea south downs north laine lanes pavilion gardens">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">6</div><div class="mon">Sep</div></div><div class="day-title"><h3>Sunday · Downs walk + your Brighton</h3><p>Ditchling Beacon for sea/Brighton/Amex views, then North Laine and Lanes.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag">South Downs</span><span class="tag flex">Hometown</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">Morning</div><h4>Ditchling Beacon / Stanmer / Falmer walk</h4><p>Taxi to Ditchling Beacon, ridge walk toward Stanmer/Falmer, views of sea, Brighton and the Amex. Train/taxi back.</p><div class="buttons"><a class="btn primary" href="https://maps.google.com/?q=Ditchling+Beacon">Ditchling Beacon</a></div></div>
+            <div class="item"><div class="time">Lunch</div><h4>Back into Brighton</h4><p>Keep it flexible depending on the walk and weather.</p></div>
+            <div class="item"><div class="time">Afternoon</div><h4>North Laine, Pavilion Gardens, The Lanes, seafront</h4><p>Show your wife your version of Brighton, not a rigid tourist checklist.</p></div>
+            <div class="item"><div class="time">Evening</div><h4>Brighton dinner/drinks</h4><p>Pick somewhere personal/local if there’s a place you want to show her.</p></div>
+          </div></div>
+        </article>
+
+        <article class="day-card" data-city="brighton" data-text="hove lawns beach huts kemptown north laine lanes final brighton day">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">7</div><div class="mon">Sep</div></div><div class="day-title"><h3>Monday · Hove / Kemptown / final Brighton</h3><p>Flexible local day: Hove walk, Kemptown, shops, pubs, final dinner.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag flex">Flexible</span></div>
+          <div class="day-body"><div class="timeline">
+            <div class="item"><div class="time">Morning</div><h4>Hove walk</h4><p>Seafront → Hove Lawns → beach huts → coffee/drink.</p></div>
+            <div class="item"><div class="time">Afternoon</div><h4>Kemptown or North Laine catch-up</h4><p>Use this to fill anything you missed on Sunday.</p></div>
+            <div class="item"><div class="time">Evening</div><h4>Final Brighton night</h4><p>Proper dinner and drinks. Keep it personal.</p></div>
+          </div></div>
+        </article>
+
+        <article class="day-card" data-city="brighton" data-text="depart brighton 8 september coffee seafront pack">
+          <div class="day-header" onclick="toggleCard(this)"><div class="date-badge"><div class="day">8</div><div class="mon">Sep</div></div><div class="day-title"><h3>Tuesday · Depart</h3><p>Coffee, final seafront, pack, onward travel.</p></div><div class="chev">⌄</div></div>
+          <div class="tags"><span class="tag travel">Departure</span></div>
+          <div class="day-body"><div class="timeline"><div class="item"><div class="time">Morning</div><h4>Final Brighton coffee</h4><p>Short seafront walk, then onward travel.</p></div></div></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" data-city="tools" id="checklist">
+      <div class="section-head"><div><h2>Trip checklist</h2><p>Tick things off. Saved locally on this device.</p></div></div>
+      <div class="tools">
+        <div class="tool-card"><h3>Book / confirm</h3><div class="checklist" id="bookingList"></div></div>
+        <div class="tool-card"><h3>Packing / day kit</h3><div class="checklist" id="packingList"></div></div>
+        <div class="tool-card"><h3>Quick transport rules</h3><p><b>London:</b> Elizabeth line from Heathrow; Tube/bus if Uber surges. <br><b>Barcelona:</b> Metro first, taxi hills/late nights. <br><b>Brighton:</b> Gatwick train to Brighton; Brighton train to Falmer.</p></div>
+        <div class="tool-card"><h3>Food rules</h3><p><b>London:</b> avoid overbooking after match days. <br><b>Barcelona:</b> don’t eat on La Rambla; El Born, Sant Antoni and Eixample are better. <br><b>Brighton:</b> keep matchday dinner flexible.</p></div>
+      </div>
+    </section>
+
+    <div class="footer">Made for phone use · works offline once saved · tap map links when online</div>
+  </main>
+
+  <script>
+    const bookingItems = [
+      ['lift109','Lift 109 slot, if doing it','London · Friday'],
+      ['batterseaDinner','Battersea dinner booking','Sticks’n’Sushi or backup'],
+      ['villaTrain','Check London ↔ Falmer train timing','Brighton v Villa day trip'],
+      ['parkGuell','Park Güell timed tickets','Barcelona · Thursday'],
+      ['sagrada','Sagrada Família tickets, only if going inside','Barcelona · birthday'],
+      ['ohla','Ohla Rooftop booking','Birthday drink'],
+      ['lomo','Lomo Alto birthday dinner','Barcelona · 2 Sept'],
+      ['brightonLeeds','Brighton v Leeds tickets / hospitality','Brighton · 5 Sept']
+    ];
+    const packingItems = [
+      ['passport','Passports + travel documents','Keep accessible'],
+      ['tickets','Match + theatre tickets saved offline','Screenshots/PDFs'],
+      ['chargers','Chargers, adapters, power bank','Long travel days'],
+      ['walkShoes','Comfortable trainers / walking shoes','London, Barcelona, Downs'],
+      ['smartCasual','Smart-casual outfit','Lomo Alto, rooftops, hospitality'],
+      ['rainLayer','Light rain jacket / layer','London, Scotland, Brighton'],
+      ['stadiumBag','Small stadium-friendly bag','Amex match days']
+    ];
+    function buildChecklist(containerId, items){
+      const el=document.getElementById(containerId); if(!el) return;
+      el.innerHTML = items.map(([id,label,sub])=>{
+        const checked = localStorage.getItem('trip-'+id)==='1' ? 'checked' : '';
+        return `<label class="check"><input type="checkbox" data-id="${id}" ${checked}><span>${label}<small>${sub}</small></span></label>`;
+      }).join('');
+    }
+    buildChecklist('bookingList', bookingItems);
+    buildChecklist('packingList', packingItems);
+    document.addEventListener('change', e=>{
+      if(e.target.matches('input[type="checkbox"][data-id]')){
+        localStorage.setItem('trip-'+e.target.dataset.id, e.target.checked ? '1':'0');
+      }
+    });
+    function toggleCard(header){ header.closest('.day-card').classList.toggle('closed'); }
+    const tabs=[...document.querySelectorAll('.tab')];
+    tabs.forEach(tab=>tab.addEventListener('click',()=>{
+      tabs.forEach(t=>t.classList.remove('active')); tab.classList.add('active');
+      const f=tab.dataset.filter;
+      document.querySelectorAll('.section').forEach(sec=>{
+        const city=sec.dataset.city;
+        sec.classList.toggle('hidden', !(f==='all'||city===f||city==='tools'&&f==='tools'));
+      });
+      if(f!=='tools') document.querySelector('[data-city="tools"]').classList.toggle('hidden', f!=='all');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }));
+    const search=document.getElementById('search');
+    search.addEventListener('input',()=>{
+      const q=search.value.trim().toLowerCase();
+      document.querySelectorAll('.day-card').forEach(card=>{
+        const text=(card.dataset.text+' '+card.innerText).toLowerCase();
+        card.classList.toggle('hidden', q && !text.includes(q));
+      });
+    });
+  </script>
+</body>
+</html>
